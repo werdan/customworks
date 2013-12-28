@@ -1,0 +1,4 @@
+name = Custom Works
+description = Custom Works main module
+package = Custom Works
+core = 7.x

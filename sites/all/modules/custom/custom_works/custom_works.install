@@ -1,0 +1,22 @@
+<?php // $Id$
+
+/**
+ * @file
+**/
+
+/**
+ * Implements hook_install().
+ */
+function custom_works_install() {
+  variable_set('custom_works_phone', '(096) 157-11-17');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ * Uses the variables table to store title links.
+ * This function deletes them.
+ */
+function custom_works_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE 'custom_works_%'");
+  cache_clear_all('variables', 'cache');
+}

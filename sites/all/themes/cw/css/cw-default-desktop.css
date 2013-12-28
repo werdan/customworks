@@ -1,0 +1,123 @@
+/* This file will hold styles that are loaded using the same media query as the narrow grid. */
+/* If you are using the default media queries provided by Omega, these styles will also
+ *  apply to the normal and widescreen layouts. You may override these styles in the normal
+ *  and widescreen CSS files as appropriate. */
+
+/* header */
+#zone-header {
+  padding-top: 130px;
+}
+#region-menu .navigation {
+  display: none !important;
+}
+/* sidebar */
+#region-sidebar-first {
+  display: block;
+}
+#region-sidebar-first .menu,
+#region-sidebar-first .menu li {
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+}
+#region-sidebar-first .menu li {
+  text-transform: uppercase;
+  font-size: 11px;
+  line-height: 14px;
+  margin: 0 0 10px;
+}
+#region-sidebar-first .menu li.last {
+  margin-bottom: 0;
+}
+#region-sidebar-first .menu li a {
+  font-weight: 100;
+  text-decoration: none !important;
+}
+#region-sidebar-first .menu li a[class*="active"] {
+  font-weight: 700;
+}
+
+/* main */
+.block.main-slider .holder {
+  margin: 100px 0 0 7%;
+  width: 36%;
+}
+.block.main-slider .field-type-image {
+  width: auto;
+  float: none;
+  position: absolute;
+  left: 200px;
+  margin: 0;
+  top: -100px;
+}
+.node-type-page h1 {
+  padding-right: 360px;
+}
+.node-type-page #region-sidebar-first.grid-4.pull-20 {
+  left: -760px;
+  width: 190px;
+}
+.node-type-page #region-content.grid-20.push-4 {
+  left: 200px;
+  width: 750px;
+}
+.node-type-page #block-system-main .omega-grid .field-name-field-image.grid-9.push-15 {
+  left: 400px;
+  margin-top: -70px;
+}
+.node-type-page #block-system-main .omega-grid .field-name-body.grid-14.pull-9 {
+  width: 350px;
+}
+/* blog */
+.page-node.node-type-blog #region-content {
+  padding-top: 0;
+}
+.node-blog.node-full .field-name-field-footer-body.grid-19 {
+  width: 590px;
+}
+.node-blog.node-full .field-name-field-blog-callout.grid-5 {
+  width: 190px;
+}
+#blog-gallery-pager .grid-6 {
+  width: 190px;
+}
+/* products */
+.view-products .views-row.grid-12 {
+  width: 390px;
+  margin-bottom: 10px;
+}
+.node-product.node-teaser .node-title {
+  font-size: 20px;
+  line-height: 22px;
+  padding-top: 15px;
+}
+.node-product.node-teaser .content {
+  width: 165px;
+  padding: 35px 20px 15px 5px;
+}
+.node-product.node-teaser .outerContainer {
+  margin-bottom: 20px;
+}
+/* product page */
+.page-node.node-type-product #region-content {
+  padding-top: 0;
+}
+#product-gallery {
+  height: 350px;
+  margin: 20px 0;
+}
+.node-product.node-full h1 {
+  font-size: 24px;
+  line-height: 30px;
+  margin-bottom: 15px;
+}
+.node-product.node-full .grid-5.prefix-1.suffix-1 {
+  padding-left: 0;
+}
+.node-product.node-full .content.grid-11 {
+  width: 350px;
+}
+.node-product.node-full #social-holder.grid-6 {
+  width: 190px;
+}
+/* footer */

@@ -1,0 +1,147 @@
+<?php // $Id$
+
+/**
+ * @file
+*/
+
+/**
+ * Implements hook_init().
+ */
+function custom_works_init() {
+  // drupal_add_js('http://maps.googleapis.com/maps/api/js?key=AIzaSyAnrwzwZg4RsjtY6CPW5DEs9fvnnhy3jeo&sensor=false&language=ru', 'external');
+  // drupal_add_js(drupal_get_path('module', 'custom_works') . '/js/contrib/infobubble-compiled.js');
+  // drupal_add_js(drupal_get_path('module', 'custom_works') . '/js/custom_works.gmap.js');
+}
+
+/**
+ * Implements hook_menu().
+ */
+function custom_works_menu() {
+  $items['contacts'] = array(
+    'title' => 'Contacts',
+    'page callback' => 'custom_works_contacts_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'main-menu',
+    'file' => 'custom_works.pages.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function custom_works_theme($existing, $type, $theme, $path) {
+  return array(
+    'main_contacts' => array(
+      'path' => $path . '/templates',
+      'template' => 'custom-works--main-contacts--block',
+      'variables' => array(
+        'email' => NULL,
+        'phone' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function custom_works_block_info() {
+  $blocks['main_contacts'] = array(
+    'info' => t('Main contacts'),
+    // 'cache' => DRUPAL_NO_CACHE
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function custom_works_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'main_contacts':
+      $block['subject'] = '';
+      $block['content'] = custom_works_contents($delta);
+      break;
+  }
+  return $block;
+}
+
+/**
+ * A module-defined block content function.
+ */
+function custom_works_contents($which_block) {
+  switch ($which_block) {
+    case 'main_contacts':
+      $theme_variables = array(
+        'email' => variable_get('site_mail', NULL),
+        'phone' => variable_get('custom_works_phone', NULL),
+      );
+      return theme('main_contacts', $theme_variables);
+      break;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function custom_works_form_system_site_information_settings_alter(&$form, &$form_state) {
+  if (isset($form['site_information'])) {
+    $contact_page_text = variable_get('custom_works_contact_page_text', NULL);
+    $coordinates = variable_get('custom_works_contact_page_coordinates', array('latitude' => NULL, 'longitude' => NULL));
+    $form['site_information']['site_phone'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Site phone'),
+      '#required' => TRUE,
+      '#default_value' => variable_get('custom_works_phone', NULL),
+      '#description' => '',
+    );
+    $form['site_information']['contact_page_latitude'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Address latitude'),
+      '#required' => TRUE,
+      '#default_value' => $coordinates['latitude'],
+      '#description' => '50.444784',
+    );
+    $form['site_information']['contact_page_longitude'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Address longitude'),
+      '#required' => TRUE,
+      '#default_value' => $coordinates['longitude'],
+      '#description' => '30.525309',
+    );
+    $form['site_information']['contact_page_text'] = array(
+      '#type' => 'text_format',
+      '#title' => t('Description'),
+      '#default_value' => $contact_page_text['value'],
+      '#required' => TRUE,
+      '#format' => $contact_page_text['format'],
+    );
+    $form['#submit'][] = 'custom_works_form_system_site_information_settings_submit';
+  }
+}
+
+/**
+ * Submit handler for custom_works_form_system_site_information_settings_alter().
+ */
+function custom_works_form_system_site_information_settings_submit($form, &$form_state) {
+  $values = $form_state['values'];
+
+  if (isset($values['site_phone'])) {
+    variable_set('custom_works_phone', $values['site_phone']);
+  }
+  if (isset($values['contact_page_text'])) {
+    variable_set('custom_works_contact_page_text', $values['contact_page_text']);
+  }
+  if (isset($values['contact_page_latitude']) && isset($values['contact_page_longitude'])) {
+    variable_set('custom_works_contact_page_coordinates', array(
+      'latitude' => $values['contact_page_latitude'],
+      'longitude' => $values['contact_page_longitude'],
+    ));
+  }
+}
