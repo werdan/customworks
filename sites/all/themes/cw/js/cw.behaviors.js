@@ -78,46 +78,57 @@
               'log' : false
             });
         }
-
         // products slider
-        if ($('#block-system-main div.field-name-field-product-gallery').get(0)) {
-          var $gallery = $('#block-system-main div.field-name-field-product-gallery', context);
+        if ($('#block-system-main div.field-name-field-product-fc-gallery').get(0)) {
+          var $gallery = $('#block-system-main div.field-name-field-product-fc-gallery', context);
           $gallery.attr('id', 'product-gallery').appendTo('#zone-content-wrapper');
           $('#product-gallery').append('<div id="product-gallery-pager"><div class="container-24"><div class="grid-24"></div></div></div>');
+          $('#product-gallery').append('<a id="product-gallery-zoom" href="#zoom"><span>' + Drupal.t('Увеличить') + '</span></a>');
+          $('#product-gallery').append('<span id="click-to-zoom"><div class="container-24"><div class="grid-24"><span class="zoom">' + Drupal.t('Кликните на фото для увеличения') + '</span></div></div></span>');
           $('#block-system-main').after('<div id="product-nav"><a href="#" class="prev">prev</a><span class="caption"></span><a href="#" class="next">next</a><div class="field button clearfix"><a href="#">' + Drupal.t("To the description") + '</a></div></div>');
           $('#product-gallery').cycle({
-            fx : 'scrollHorz',
-            slides : '> div.field-items > div.field-item',
-            speed : animationSpeed,
-            swipe : true,
-            timeout : 0,
-            prev : '#product-nav a.prev',
-            next : '#product-nav a.next',
-            caption : '#product-nav span.caption',
+            'fx' : 'scrollHorz',
+            'slides' : '> div.field-items > div.field-item',
+            'speed' : animationSpeed,
+            'swipe' : true,
+            'timeout' : 0,
+            'prev' : '#product-nav a.prev',
+            'next' : '#product-nav a.next',
+            'caption' : '#product-nav span.caption',
             'autoHeight' : 'calc',
-            pager : '#product-gallery-pager .grid-24',
-            pagerActiveClass : 'active',
+            'pager' : '#product-gallery-pager .grid-24',
+            'pagerActiveClass' : 'active',
             'log' : false
           });
           $(window).load(function() {
-            $('#product-gallery img').on('click', function() {
-              if (!$('body').hasClass('wide-product-gallery')
-                  && !$('body').hasClass('responsive-layout-mobile')) {
-                $('#block-system-main').stop(true, true).fadeOut(animationSpeed);
-                $('#product-gallery')
-                  .stop(true, true).fadeOut(animationSpeed, function() {
-                    $('body').addClass('wide-product-gallery');
-                      $('#product-gallery').stop(true, true).fadeIn(animationSpeed);
-                  });
-              }
-            });
+            $('#product-gallery img, #product-gallery-zoom')
+              .on('hover', function(e) {
+                if (!$('body').hasClass('wide-product-gallery')) {
+                  $('#product-gallery').toggleClass('hover');
+                }
+              });
+          });
+          $('#product-gallery-zoom').address();
+          $.address.change(function(event){
+            if (event.value == '/') {
+              $('#product-gallery').stop(true, true).fadeOut(animationSpeed, function() {
+                $('body').removeClass('wide-product-gallery');
+                $('#block-system-main').stop(true, true).fadeIn(animationSpeed);
+                $('#product-gallery').stop(true, true).fadeIn(animationSpeed);
+              });
+            }
+            else if (event.value == '/zoom') {
+              $('#block-system-main').stop(true, true).fadeOut(animationSpeed);
+              $('#product-gallery')
+                .stop(true, true).fadeOut(animationSpeed, function() {
+                  $('body').addClass('wide-product-gallery');
+                  $(this).removeClass('hover')
+                    $('#product-gallery').stop(true, true).fadeIn(animationSpeed);
+                });
+            }
           });
           $('#product-nav .field a').on('click', function(e) {
-            $('#product-gallery').stop(true, true).fadeOut(animationSpeed, function() {
-              $('body').removeClass('wide-product-gallery');
-              $('#block-system-main').stop(true, true).fadeIn(animationSpeed);
-              $('#product-gallery').stop(true, true).fadeIn(animationSpeed);
-            });
+            $.address.value('');
             e.preventDefault();
           });
         }

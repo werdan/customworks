@@ -36,6 +36,11 @@ libraries[cycle][js][0][options][weight] = 1
 libraries[cycle][js][1][file] = contrib/jquery.cycle2.swipe.min.js
 libraries[cycle][js][1][options][weight] = 2
 
+libraries[address][name] = jQuery Address Plugin v1.5
+libraries[address][description] = Version: 1.5 http://www.asual.com/jquery/address/
+libraries[address][js][0][file] = contrib/jquery.address-1.5.min.js
+libraries[address][js][0][options][weight] = 3
+
 libraries[madness][name] = Custom Works custom
 libraries[madness][description] = This file holds all the globally active custom js of your theme.
 libraries[madness][js][0][file] = cw.behaviors.js
