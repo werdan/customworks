@@ -703,6 +703,24 @@ body.page-products h1 {
   max-width: none;
   max-height: none;
 }
+.wide-product-gallery #product-gallery .field-item img {
+  max-width: none;
+  max-height: 100%;
+  min-height: 100%;
+  min-width: 0;
+  margin: 0 auto;
+  display: block;
+  width: auto;
+  height: auto;
+}
+.responsive-layout-mobile #product-gallery .field-item img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  min-width: 0;
+  min-height: 0;
+}
 #product-nav {
   float: right;
   position: relative;
