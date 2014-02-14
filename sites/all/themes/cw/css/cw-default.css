@@ -695,13 +695,14 @@ body.page-products h1 {
   width: 100%;
 }
 #product-gallery .field-item img {
-  min-width: 100%;
-  min-height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  min-width: 0;
+  margin: auto;
   display: block;
   width: auto;
   height: auto;
-  max-width: none;
-  max-height: none;
 }
 .wide-product-gallery #product-gallery .field-item img {
   max-width: 100%;

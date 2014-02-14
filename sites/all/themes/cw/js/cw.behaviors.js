@@ -108,6 +108,14 @@
                 }
               });
           });
+          $(document).on('click', '#product-gallery .field-item img', function(e) {
+            if ($('body').hasClass('wide-product-gallery')) {
+              e.preventDefault();
+            }
+            else {
+              $('#product-gallery-zoom').trigger('click');
+            }
+          });
           $('#product-gallery-zoom').address();
           $.address.change(function(event){
             if (event.value == '/') {
